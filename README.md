@@ -64,6 +64,29 @@ What it does:
 
 The hard-coded values are defined near the top of `selenium_two.py`.
 
+## 4. Run the Cypress automation
+
+Install the npm dependency first:
+
+```bash
+npm install
+```
+
+Then run the Cypress test launcher:
+
+```bash
+python cypress_one.py
+```
+
+What it does:
+
+1. Starts `main.py` if the local server is not already running.
+2. Opens the app in Cypress.
+3. Logs in as a local user.
+4. Opens another user chat and sends a message.
+5. Verifies the message is stored in `data.json`.
+6. Stops the server it started.
+
 ## Notes
 
 - Keep `main.py` running while you use the Selenium scripts.

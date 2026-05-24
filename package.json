@@ -1,0 +1,13 @@
+{
+  "name": "practical-api-testing",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Local Cypress automation for the WhatsApp SPA test app",
+  "scripts": {
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run"
+  },
+  "devDependencies": {
+    "cypress": "^13.14.2"
+  }
+}

@@ -53,6 +53,30 @@
       "recipient": "bob",
       "text": "im Sarthi",
       "timestamp": 1779631756200
+    },
+    {
+      "id": "1779633964460zfe7l",
+      "sender": "alice",
+      "type": "direct",
+      "recipient": "bob",
+      "text": "Cypress message 1779633961130",
+      "timestamp": 1779633964460
+    },
+    {
+      "id": "1779634167253exqil",
+      "sender": "alice",
+      "type": "direct",
+      "recipient": "bob",
+      "text": "Cypress message 1779634165314",
+      "timestamp": 1779634167253
+    },
+    {
+      "id": "1779634394846ci79t",
+      "sender": "alice",
+      "type": "group",
+      "recipient": "g_1779634340627",
+      "text": "hi",
+      "timestamp": 1779634394846
     }
   ],
   "groups": [
@@ -64,6 +88,17 @@
         "alice",
         "bob",
         "charlie"
+      ]
+    },
+    {
+      "id": "g_1779634340627",
+      "name": "Cypress All Users Group",
+      "creator": "alice",
+      "members": [
+        "alice",
+        "bob",
+        "charlie",
+        "testuser_automation_01"
       ]
     }
   ],
