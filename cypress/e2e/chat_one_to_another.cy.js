@@ -1,7 +1,7 @@
 const USERNAME = 'alice';
 const PASSWORD = '123';
-const TARGET_USER = 'bob';
-const MESSAGE_TEXT = `Cypress message ${Date.now()}`;
+const TARGET_USER = 'sarthi';
+const MESSAGE_TEXT = `send by sarthi`;
 
 function setCurrentUserNull() {
   cy.request('GET', '/api/state').then((response) => {

@@ -4,10 +4,34 @@
       "username": "alice",
       "name": "Alice Smith",
       "password": "123"
+    },
+    {
+      "name": "sarthi",
+      "username": "sarthi",
+      "password": "123"
     }
   ],
-  "messages": [],
-  "groups": [],
+  "messages": [
+    {
+      "id": "1779694880401ll0e1",
+      "sender": "sarthi",
+      "type": "direct",
+      "recipient": "alice",
+      "text": "hi",
+      "timestamp": 1779694880401
+    }
+  ],
+  "groups": [
+    {
+      "id": "g_1779695437887",
+      "name": "Cypress All Users Group",
+      "creator": "alice",
+      "members": [
+        "alice",
+        "sarthi"
+      ]
+    }
+  ],
   "currentUser": {
     "username": "alice",
     "name": "Alice Smith"
