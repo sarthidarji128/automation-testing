@@ -18,7 +18,7 @@ DATA_FILE = BASE_DIR / "data.json"
 APP_URL = "http://127.0.0.1:8000/#/signup"
 
 SIGNUP_NAME = "Test User"
-SIGNUP_USERNAME = "testuser_automation_01"
+SIGNUP_USERNAME = "testuser_automation_03"
 SIGNUP_PASSWORD = "123456"
 
 

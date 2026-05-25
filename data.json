@@ -4,104 +4,10 @@
       "username": "alice",
       "name": "Alice Smith",
       "password": "123"
-    },
-    {
-      "username": "bob",
-      "name": "Bob Jones",
-      "password": "123"
-    },
-    {
-      "username": "charlie",
-      "name": "Charlie Brown",
-      "password": "123"
-    },
-    {
-      "name": "Test User",
-      "username": "testuser_automation_01",
-      "password": "123456"
     }
   ],
-  "messages": [
-    {
-      "id": "1",
-      "sender": "alice",
-      "type": "direct",
-      "recipient": "bob",
-      "text": "Hey Bob! Welcome to WhatsApp SPA.",
-      "timestamp": 0
-    },
-    {
-      "id": "2",
-      "sender": "bob",
-      "type": "direct",
-      "recipient": "alice",
-      "text": "Thanks Alice! This is incredibly fast.",
-      "timestamp": 0
-    },
-    {
-      "id": "1779631736773t0wwm",
-      "sender": "alice",
-      "type": "direct",
-      "recipient": "bob",
-      "text": "hiiii",
-      "timestamp": 1779631736773
-    },
-    {
-      "id": "1779631756200d949s",
-      "sender": "alice",
-      "type": "direct",
-      "recipient": "bob",
-      "text": "im Sarthi",
-      "timestamp": 1779631756200
-    },
-    {
-      "id": "1779633964460zfe7l",
-      "sender": "alice",
-      "type": "direct",
-      "recipient": "bob",
-      "text": "Cypress message 1779633961130",
-      "timestamp": 1779633964460
-    },
-    {
-      "id": "1779634167253exqil",
-      "sender": "alice",
-      "type": "direct",
-      "recipient": "bob",
-      "text": "Cypress message 1779634165314",
-      "timestamp": 1779634167253
-    },
-    {
-      "id": "1779634394846ci79t",
-      "sender": "alice",
-      "type": "group",
-      "recipient": "g_1779634340627",
-      "text": "hi",
-      "timestamp": 1779634394846
-    }
-  ],
-  "groups": [
-    {
-      "id": "g1",
-      "name": "Watercooler ☕",
-      "creator": "alice",
-      "members": [
-        "alice",
-        "bob",
-        "charlie"
-      ]
-    },
-    {
-      "id": "g_1779634340627",
-      "name": "Cypress All Users Group",
-      "creator": "alice",
-      "members": [
-        "alice",
-        "bob",
-        "charlie",
-        "testuser_automation_01"
-      ]
-    }
-  ],
+  "messages": [],
+  "groups": [],
   "currentUser": {
     "username": "alice",
     "name": "Alice Smith"
