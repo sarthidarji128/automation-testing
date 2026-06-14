@@ -29,7 +29,7 @@ describe('PUT Message API Test', () => {
     });
 
     cy.get('.msg-dropdown.active').should('be.visible');
-    cy.get('.msg-dropdown-item').contains('Edit message').click();
+    cy.get('.msg-dropdown.active .msg-dropdown-item').contains('Edit message').click();
 
     const editedText = `This message was edited ${Date.now()}`;
     cy.get('.msg-edit-input').clear().type(editedText);

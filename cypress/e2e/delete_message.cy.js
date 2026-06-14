@@ -32,7 +32,7 @@ describe('DELETE Message API Test', () => {
     // Handle alert prompt/confirm popups automatically
     cy.on('window:confirm', () => true);
     
-    cy.get('.msg-dropdown-item.danger').contains('Delete for all').click();
+    cy.get('.msg-dropdown.active .msg-dropdown-item.danger').contains('Delete for all').click();
 
     // Verify it is gone
     cy.get('.message-list').should('not.contain', uniqueMsg);

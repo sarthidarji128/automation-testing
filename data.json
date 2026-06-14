@@ -131,6 +131,22 @@
       "recipient": "bob",
       "text": "Hello Bob! Automated test 1781430292317",
       "timestamp": 1781430294317
+    },
+    {
+      "id": "1781430444889pmnxt",
+      "sender": "alice",
+      "type": "direct",
+      "recipient": "bob",
+      "text": "Msg to edit 1781430443106",
+      "timestamp": 1781430444889
+    },
+    {
+      "id": "1781430564150r7au8",
+      "sender": "alice",
+      "type": "direct",
+      "recipient": "bob",
+      "text": "This message was edited 1781430562241",
+      "timestamp": 1781430564150
     }
   ],
   "groups": [],
