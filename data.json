@@ -123,6 +123,14 @@
       "recipient": "alice",
       "text": "Hello Im Sarthi",
       "timestamp": 1781429444082
+    },
+    {
+      "id": "1781430294316n7nfb",
+      "sender": "alice",
+      "type": "direct",
+      "recipient": "bob",
+      "text": "Hello Bob! Automated test 1781430292317",
+      "timestamp": 1781430294317
     }
   ],
   "groups": [],
