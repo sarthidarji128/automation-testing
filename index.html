@@ -3,35 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WhatsApp Web - SPA</title>
-    <!-- FontAwesome for beautiful modern icons -->
+    <title>WhatsApp Web - Secure SPA</title>
+    <!-- FontAwesome for modern visual icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts for premium clean typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
+            /* WhatsApp Modern Dark Colors */
             --wa-bg: #0b141a;
             --wa-sidebar-bg: #111b21;
             --wa-header-bg: #202c33;
             --wa-green: #00a884;
-            --wa-green-hover: #008f72;
+            --wa-green-hover: #06cf9c;
             --wa-message-sent: #005c4b;
             --wa-message-recv: #202c33;
             --wa-text-primary: #e9edef;
             --wa-text-secondary: #8696a0;
-            --wa-border: #222d34;
+            --wa-border: #222e35;
             --wa-input-bg: #2a3942;
             --wa-active-chat: #2a3942;
-            --wa-accent: #53bdeb;
+            --wa-accent: #00a884;
+            
+            /* API Inspector Specific Theme */
+            --api-bg: #0c1015;
+            --api-border: #1f242c;
+            --api-text: #c9d1d9;
+            --api-header: #161b22;
+            --api-get: #58a6ff;
+            --api-post: #3fb950;
+            --api-put: #db6d28;
+            --api-delete: #f85149;
+            --api-code-key: #79c0ff;
+            --api-code-string: #a5d6ff;
+            --api-code-number: #ff7b72;
+            --api-code-boolean: #d2a8ff;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
         }
 
         body {
-            background-color: var(--wa-bg);
+            background-color: #0c0f12;
             color: var(--wa-text-primary);
             height: 100vh;
             display: flex;
@@ -40,7 +57,7 @@
             overflow: hidden;
         }
 
-        /* SPA Pages (Routers) */
+        /* Router Pages styling */
         .page {
             display: none;
             width: 100%;
@@ -51,30 +68,46 @@
             display: flex;
         }
 
-        /* === LOGIN & SIGNUP PAGES === */
+        /* === SIGNUP & LOGIN PAGES === */
+        .auth-wrapper {
+            background: radial-gradient(circle at 10% 20%, rgba(0, 168, 132, 0.15) 0%, rgba(11, 20, 26, 0) 90%);
+            display: flex;
+            width: 100%;
+            height: 100%;
+            justify-content: center;
+            align-items: center;
+        }
+
         .auth-container {
             width: 100%;
-            max-width: 450px;
+            max-width: 440px;
             background-color: var(--wa-sidebar-bg);
-            border-radius: 12px;
-            padding: 40px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            border-radius: 20px;
+            padding: 45px;
+            box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5);
             border: 1px solid var(--wa-border);
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin: auto;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .auth-logo {
-            font-size: 64px;
+            font-size: 56px;
             color: var(--wa-green);
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 10px rgba(0, 168, 132, 0.3));
         }
 
         .auth-title {
-            font-size: 24px;
-            font-weight: 500;
+            font-family: 'Outfit', sans-serif;
+            font-size: 30px;
+            font-weight: 600;
             margin-bottom: 8px;
             color: var(--wa-text-primary);
         }
@@ -82,7 +115,7 @@
         .auth-subtitle {
             font-size: 14px;
             color: var(--wa-text-secondary);
-            margin-bottom: 30px;
+            margin-bottom: 35px;
             text-align: center;
         }
 
@@ -101,78 +134,93 @@
 
         .input-group label {
             font-size: 12px;
-            color: var(--wa-green);
+            color: var(--wa-text-secondary);
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.8px;
         }
 
         .input-group input {
             background-color: var(--wa-input-bg);
-            border: 1px solid transparent;
+            border: 1px solid var(--wa-border);
             color: var(--wa-text-primary);
-            padding: 12px 16px;
-            border-radius: 8px;
+            padding: 14px 16px;
+            border-radius: 10px;
             font-size: 15px;
             outline: none;
-            transition: border-color 0.2s;
+            transition: all 0.25s ease;
         }
 
         .input-group input:focus {
             border-color: var(--wa-green);
+            box-shadow: 0 0 0 3px rgba(0, 168, 132, 0.2);
         }
 
         .auth-btn {
             background-color: var(--wa-green);
             color: #ffffff;
             border: none;
-            padding: 14px;
-            border-radius: 8px;
+            padding: 15px 32px;
+            border-radius: 10px;
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
-            transition: background-color 0.2s;
-            margin-top: 10px;
+            transition: all 0.25s ease;
+            margin-top: 15px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 168, 132, 0.2);
         }
 
         .auth-btn:hover {
             background-color: var(--wa-green-hover);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(0, 168, 132, 0.3);
+        }
+
+        .auth-btn:active {
+            transform: translateY(0);
         }
 
         .auth-footer {
-            margin-top: 25px;
+            margin-top: 30px;
             font-size: 14px;
             color: var(--wa-text-secondary);
+            text-align: center;
         }
 
         .auth-footer a {
             color: var(--wa-green);
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 600;
+            transition: color 0.2s;
         }
 
         .auth-footer a:hover {
+            color: var(--wa-green-hover);
             text-decoration: underline;
         }
 
-        /* === CHAT APP PAGE === */
+        /* === CHAT APP CONTAINER === */
         .chat-app-container {
             display: flex;
             width: 100%;
             height: 100%;
+            position: relative;
             background-color: var(--wa-bg);
         }
 
-        /* Sidebar Styling */
+        /* Sidebar UI */
         .sidebar {
             width: 30%;
             min-width: 320px;
-            max-width: 450px;
+            max-width: 440px;
             background-color: var(--wa-sidebar-bg);
             border-right: 1px solid var(--wa-border);
             display: flex;
             flex-direction: column;
             height: 100%;
+            position: relative;
         }
 
         .sidebar-header {
@@ -188,40 +236,44 @@
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            background-color: var(--wa-input-bg);
+            background: linear-gradient(135deg, var(--wa-green), #037d63);
             display: flex;
             justify-content: center;
             align-items: center;
-            color: var(--wa-text-secondary);
-            font-weight: bold;
-            font-size: 18px;
-            border: 2px solid var(--wa-green);
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 16px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            text-transform: uppercase;
         }
 
         .sidebar-actions {
             display: flex;
             gap: 20px;
             color: var(--wa-text-secondary);
-            font-size: 20px;
+            font-size: 18px;
+            align-items: center;
         }
 
         .sidebar-actions i {
             cursor: pointer;
-            transition: color 0.2s;
+            transition: color 0.2s, transform 0.2s;
         }
 
         .sidebar-actions i:hover {
             color: var(--wa-text-primary);
+            transform: scale(1.1);
         }
 
-        /* Search / Filters Bar */
+        /* Search input container */
         .search-container {
             padding: 8px 12px;
             background-color: var(--wa-sidebar-bg);
             border-bottom: 1px solid var(--wa-border);
             display: flex;
             align-items: center;
-            gap: 10px;
         }
 
         .search-wrapper {
@@ -231,7 +283,7 @@
             align-items: center;
             padding: 6px 14px;
             width: 100%;
-            gap: 10px;
+            gap: 12px;
         }
 
         .search-wrapper i {
@@ -248,33 +300,40 @@
             width: 100%;
         }
 
-        /* Tab options for sidebar */
+        .search-wrapper input::placeholder {
+            color: var(--wa-text-secondary);
+        }
+
+        /* Sidebar tab selectors */
         .sidebar-tabs {
             display: flex;
             border-bottom: 1px solid var(--wa-border);
+            background-color: var(--wa-sidebar-bg);
         }
 
         .sidebar-tab {
             flex: 1;
             text-align: center;
-            padding: 12px;
+            padding: 14px;
             cursor: pointer;
             font-size: 14px;
-            font-weight: 500;
+            font-weight: 600;
             color: var(--wa-text-secondary);
             border-bottom: 3px solid transparent;
-            transition: all 0.2s;
+            transition: all 0.25s ease;
         }
 
         .sidebar-tab.active {
             color: var(--wa-green);
             border-bottom-color: var(--wa-green);
+            background-color: rgba(0, 168, 132, 0.04);
         }
 
-        /* List Items (Chats / Groups / Users) */
+        /* Sidebar item lists */
         .list-container {
             flex: 1;
             overflow-y: auto;
+            background-color: var(--wa-sidebar-bg);
         }
 
         .list-container::-webkit-scrollbar {
@@ -282,7 +341,7 @@
         }
 
         .list-container::-webkit-scrollbar-thumb {
-            background-color: rgba(255, 255, 255, 0.1);
+            background-color: var(--wa-border);
             border-radius: 3px;
         }
 
@@ -308,18 +367,20 @@
             width: 48px;
             height: 48px;
             border-radius: 50%;
-            background-color: var(--wa-input-bg);
+            background: linear-gradient(135deg, #2a3942, #1f2d35);
             display: flex;
             justify-content: center;
             align-items: center;
             color: var(--wa-text-primary);
-            font-weight: bold;
+            font-weight: 600;
             font-size: 18px;
-            position: relative;
+            text-transform: uppercase;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
 
         .item-avatar.group-avatar {
-            background-color: #0d47a1;
+            background: linear-gradient(135deg, var(--wa-green), #037d63);
+            color: #ffffff;
         }
 
         .item-details {
@@ -346,32 +407,34 @@
         }
 
         .item-time {
-            font-size: 12px;
+            font-size: 11px;
             color: var(--wa-text-secondary);
         }
 
         .item-last-msg {
-            font-size: 14px;
+            font-size: 13.5px;
             color: var(--wa-text-secondary);
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
 
-        /* Main Chat Area Window */
+        /* Chat Window Area */
         .chat-area {
             flex: 1;
             display: flex;
             flex-direction: column;
-            background-color: var(--wa-bg);
+            background-color: #0b141a;
+            /* Classic WhatsApp Dark Wallpaper Pattern */
             background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png');
-            background-blend-mode: overlay;
-            background-opacity: 0.06;
+            background-repeat: repeat;
+            background-size: auto;
+            opacity: 0.98;
             height: 100%;
             position: relative;
         }
 
-        /* Welcome Screen (No Active Chat) */
+        /* Splash Welcome screen overlay */
         .welcome-screen {
             position: absolute;
             top: 0;
@@ -386,29 +449,65 @@
             text-align: center;
             padding: 40px;
             z-index: 5;
+            border-bottom: 6px solid var(--wa-green);
         }
 
-        .welcome-icon {
-            font-size: 96px;
-            color: var(--wa-text-secondary);
-            margin-bottom: 20px;
-            opacity: 0.5;
+        .welcome-logo-container {
+            margin-bottom: 30px;
+            animation: bounceIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+            70% { transform: scale(0.9); opacity: 0.9; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .welcome-logo-container i {
+            font-size: 80px;
+            color: var(--wa-green);
+            filter: drop-shadow(0 0 15px rgba(0, 168, 132, 0.4));
         }
 
         .welcome-title {
+            font-family: 'Outfit', sans-serif;
             font-size: 32px;
             font-weight: 300;
-            margin-bottom: 10px;
+            color: var(--wa-text-primary);
+            margin-bottom: 12px;
         }
 
         .welcome-desc {
             font-size: 14px;
             color: var(--wa-text-secondary);
-            max-width: 450px;
-            line-height: 20px;
+            max-width: 480px;
+            line-height: 22px;
+            margin-bottom: 40px;
         }
 
-        /* Chat Area Header */
+        .welcome-divider {
+            width: 100%;
+            max-width: 480px;
+            height: 1px;
+            background-color: var(--wa-border);
+            margin-bottom: 25px;
+        }
+
+        .welcome-footer {
+            font-size: 13px;
+            color: var(--wa-text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .welcome-footer i {
+            color: var(--wa-green);
+            font-size: 12px;
+        }
+
+        /* Active chat header */
         .chat-header {
             background-color: var(--wa-header-bg);
             height: 60px;
@@ -416,7 +515,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            z-index: 1;
+            z-index: 2;
+            border-bottom: 1px solid var(--wa-border);
         }
 
         .chat-header-info {
@@ -427,8 +527,9 @@
         }
 
         .chat-title {
-            font-weight: 500;
-            font-size: 16px;
+            font-weight: 600;
+            font-size: 16.5px;
+            color: var(--wa-text-primary);
         }
 
         .chat-subtitle {
@@ -437,33 +538,36 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            max-width: 300px;
+            max-width: 320px;
         }
 
         .chat-header-actions {
             display: flex;
-            gap: 20px;
+            gap: 22px;
             color: var(--wa-text-secondary);
-            font-size: 20px;
+            font-size: 18px;
+            align-items: center;
         }
 
         .chat-header-actions i {
             cursor: pointer;
-            transition: color 0.2s;
+            transition: color 0.2s, transform 0.2s;
         }
 
         .chat-header-actions i:hover {
             color: var(--wa-text-primary);
+            transform: scale(1.1);
         }
 
-        /* Chat Message List Window */
+        /* Message flow panel */
         .message-list {
             flex: 1;
-            padding: 20px 4%;
+            padding: 20px 6%;
             overflow-y: auto;
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 10px;
+            z-index: 1;
         }
 
         .message-list::-webkit-scrollbar {
@@ -471,14 +575,20 @@
         }
 
         .message-list::-webkit-scrollbar-thumb {
-            background-color: rgba(255, 255, 255, 0.1);
+            background-color: rgba(255, 255, 255, 0.08);
             border-radius: 3px;
         }
 
-        /* Messages */
+        /* Message Bubbles */
         .msg-row {
             display: flex;
             width: 100%;
+            animation: bubbleIn 0.2s ease-out;
+        }
+
+        @keyframes bubbleIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
         }
 
         .msg-row.sent {
@@ -491,14 +601,15 @@
 
         .msg-bubble {
             max-width: 65%;
-            padding: 8px 12px;
+            padding: 8px 12px 6px 12px;
             border-radius: 8px;
             position: relative;
-            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 1.5px 2px rgba(0, 0, 0, 0.35);
             word-wrap: break-word;
             display: flex;
             flex-direction: column;
-            gap: 3px;
+            gap: 2px;
+            min-width: 80px;
         }
 
         .msg-row.sent .msg-bubble {
@@ -515,14 +626,15 @@
 
         .msg-sender {
             font-size: 12px;
-            font-weight: 600;
-            color: var(--wa-accent);
+            font-weight: 700;
+            color: #53bdeb;
             margin-bottom: 2px;
+            text-transform: capitalize;
         }
 
         .msg-content {
-            font-size: 14.2px;
-            line-height: 19px;
+            font-size: 14.5px;
+            line-height: 20px;
             white-space: pre-wrap;
         }
 
@@ -531,39 +643,170 @@
             justify-content: flex-end;
             align-items: center;
             gap: 4px;
-            font-size: 11px;
+            font-size: 10px;
             color: var(--wa-text-secondary);
             margin-top: 2px;
             align-self: flex-end;
         }
 
         .msg-row.sent .msg-time-status {
-            color: rgba(255, 255, 255, 0.6);
+            color: rgba(233, 237, 239, 0.55);
         }
 
         .msg-time-status i {
-            color: var(--wa-accent);
+            color: #53bdeb;
+            font-size: 11px;
         }
 
-        /* Message Input Area */
+        /* Hover message actions */
+        .msg-bubble:hover .msg-caret-btn {
+            opacity: 1;
+        }
+
+        .msg-caret-btn {
+            position: absolute;
+            top: 4px;
+            right: 6px;
+            background: linear-gradient(90deg, transparent, rgba(0,0,0,0.3) 30%, rgba(0,0,0,0.6));
+            border: none;
+            color: var(--wa-text-secondary);
+            cursor: pointer;
+            padding-left: 20px;
+            padding-right: 4px;
+            border-radius: 4px;
+            font-size: 13px;
+            opacity: 0;
+            transition: opacity 0.2s;
+            outline: none;
+        }
+
+        .msg-caret-btn:hover {
+            color: var(--wa-text-primary);
+        }
+
+        /* Caret Dropdown Menu */
+        .msg-dropdown {
+            display: none;
+            position: absolute;
+            top: 25px;
+            right: 4px;
+            background-color: #233138;
+            border: 1px solid var(--wa-border);
+            border-radius: 4px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+            z-index: 10;
+            width: 140px;
+            overflow: hidden;
+            animation: dropdownFade 0.15s ease-out;
+        }
+
+        .msg-dropdown.active {
+            display: block;
+        }
+
+        @keyframes dropdownFade {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .msg-dropdown-item {
+            padding: 10px 14px;
+            font-size: 13px;
+            color: var(--wa-text-primary);
+            cursor: pointer;
+            transition: background-color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .msg-dropdown-item:hover {
+            background-color: #182229;
+        }
+
+        .msg-dropdown-item.danger {
+            color: #ef5350;
+        }
+
+        .msg-dropdown-item.danger:hover {
+            background-color: rgba(239, 83, 80, 0.08);
+        }
+
+        /* Inline Edit Bubble Styles */
+        .msg-edit-container {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            width: 100%;
+            margin-top: 4px;
+        }
+
+        .msg-edit-input {
+            background-color: var(--wa-input-bg);
+            border: 1px solid var(--wa-green);
+            border-radius: 6px;
+            color: var(--wa-text-primary);
+            padding: 8px 10px;
+            font-size: 14px;
+            outline: none;
+            width: 100%;
+        }
+
+        .msg-edit-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+        }
+
+        .msg-edit-btn {
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            outline: none;
+        }
+
+        .msg-edit-btn.save {
+            background-color: var(--wa-green);
+            color: white;
+        }
+
+        .msg-edit-btn.save:hover {
+            background-color: var(--wa-green-hover);
+        }
+
+        .msg-edit-btn.cancel {
+            background-color: transparent;
+            color: var(--wa-text-secondary);
+        }
+
+        .msg-edit-btn.cancel:hover {
+            color: var(--wa-text-primary);
+        }
+
+        /* Message input bottom bar */
         .message-input-bar {
             background-color: var(--wa-header-bg);
             padding: 10px 16px;
             display: flex;
             align-items: center;
             gap: 16px;
-            z-index: 1;
+            z-index: 2;
+            border-top: 1px solid var(--wa-border);
         }
 
         .message-input-bar i {
             color: var(--wa-text-secondary);
-            font-size: 22px;
+            font-size: 20px;
             cursor: pointer;
-            transition: color 0.2s;
+            transition: color 0.2s, transform 0.2s;
         }
 
         .message-input-bar i:hover {
             color: var(--wa-text-primary);
+            transform: scale(1.08);
         }
 
         .input-message-wrapper {
@@ -579,12 +822,386 @@
             background: transparent;
             border: none;
             color: var(--wa-text-primary);
-            font-size: 15px;
+            font-size: 14.5px;
             outline: none;
             width: 100%;
         }
 
-        /* === MODAL WINDOW === */
+        .input-message-wrapper input::placeholder {
+            color: var(--wa-text-secondary);
+        }
+
+        /* === INTERACTIVE API INSPECTOR PANEL === */
+        .api-inspector {
+            width: 380px;
+            background-color: var(--api-bg);
+            border-left: 1px solid var(--wa-border);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+            flex-shrink: 0;
+            z-index: 10;
+        }
+
+        .api-inspector.collapsed {
+            width: 0;
+            border-left: none;
+        }
+
+        .api-inspector-header {
+            background-color: var(--api-header);
+            border-bottom: 1px solid var(--api-border);
+            height: 60px;
+            padding: 0 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .api-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--api-text);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .api-title i {
+            color: var(--wa-green);
+        }
+
+        .api-header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .api-header-btn {
+            background: transparent;
+            border: none;
+            color: var(--wa-text-secondary);
+            cursor: pointer;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+
+        .api-header-btn:hover {
+            color: var(--wa-text-primary);
+        }
+
+        /* Tab selectors for API console */
+        .api-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--api-border);
+            background-color: var(--api-header);
+        }
+
+        .api-tab {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--wa-text-secondary);
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+        }
+
+        .api-tab.active {
+            color: var(--wa-green);
+            border-bottom-color: var(--wa-green);
+            background-color: rgba(0, 168, 132, 0.05);
+        }
+
+        /* API logs scroll window */
+        .api-panel-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px;
+            display: none;
+        }
+
+        .api-panel-content.active {
+            display: block;
+        }
+
+        .api-panel-content::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .api-panel-content::-webkit-scrollbar-thumb {
+            background-color: var(--api-border);
+            border-radius: 3px;
+        }
+
+        /* API Log Items list */
+        .api-log-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .api-empty {
+            padding: 30px 10px;
+            text-align: center;
+            color: var(--wa-text-secondary);
+            font-size: 13px;
+            line-height: 20px;
+            border: 1px dashed var(--api-border);
+            border-radius: 8px;
+        }
+
+        .api-log-item {
+            border: 1px solid var(--api-border);
+            border-radius: 8px;
+            background-color: #161b22;
+            overflow: hidden;
+            transition: border-color 0.2s;
+        }
+
+        .api-log-item:hover {
+            border-color: #30363d;
+        }
+
+        .api-log-header {
+            padding: 10px 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .api-method {
+            font-size: 10px;
+            font-weight: 800;
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #ffffff;
+            min-width: 54px;
+            text-align: center;
+        }
+
+        .badge-get { background-color: var(--api-get); }
+        .badge-post { background-color: var(--api-post); }
+        .badge-put { background-color: var(--api-put); }
+        .badge-delete { background-color: var(--api-delete); }
+        .badge-options { background-color: #8b949e; }
+
+        .api-path {
+            font-size: 12.5px;
+            font-family: monospace;
+            color: var(--api-text);
+            flex: 1;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .api-status {
+            font-size: 10px;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .badge-success { background-color: rgba(63, 185, 80, 0.15); color: #58a6ff; border: 1px solid rgba(63, 185, 80, 0.3); }
+        .badge-error { background-color: rgba(248, 81, 73, 0.15); color: #ff7b72; border: 1px solid rgba(248, 81, 73, 0.3); }
+        .badge-pending { background-color: rgba(218, 109, 40, 0.15); color: #db6d28; border: 1px solid rgba(218, 109, 40, 0.3); }
+
+        .api-chevron {
+            color: var(--wa-text-secondary);
+            font-size: 11px;
+            transition: transform 0.2s;
+        }
+
+        .api-log-item.expanded .api-chevron {
+            transform: rotate(180deg);
+        }
+
+        .api-log-details {
+            display: none;
+            padding: 12px;
+            border-top: 1px solid var(--api-border);
+            background-color: #0d1117;
+            font-family: monospace;
+            font-size: 12px;
+        }
+
+        .api-log-item.expanded .api-log-details {
+            display: block;
+        }
+
+        .api-log-time {
+            color: #8b949e;
+            margin-bottom: 8px;
+            font-size: 10.5px;
+            border-bottom: 1px dashed var(--api-border);
+            padding-bottom: 6px;
+        }
+
+        .api-json-section {
+            margin-top: 8px;
+        }
+
+        .api-json-title {
+            color: #8b949e;
+            font-size: 10.5px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .api-json-code {
+            padding: 8px;
+            background-color: #161b22;
+            border-radius: 6px;
+            overflow-x: auto;
+            border: 1px solid var(--api-border);
+            color: var(--api-text);
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+
+        /* Pretty-printed JSON class labels */
+        .api-code-key { color: var(--api-code-key); }
+        .api-code-string { color: var(--api-code-string); }
+        .api-code-number { color: var(--api-code-number); }
+        .api-code-boolean { color: var(--api-code-boolean); }
+        .api-code-null { color: #8b949e; font-style: italic; }
+
+        /* API manual test bench accordion forms */
+        .tb-section {
+            border: 1px solid var(--api-border);
+            border-radius: 8px;
+            background-color: #161b22;
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+
+        .tb-endpoint-header {
+            padding: 10px 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            user-select: none;
+            transition: background-color 0.2s;
+        }
+
+        .tb-endpoint-header:hover {
+            background-color: #1f242c;
+        }
+
+        .tb-endpoint-form {
+            display: none;
+            padding: 14px;
+            border-top: 1px solid var(--api-border);
+            background-color: #0d1117;
+        }
+
+        .tb-endpoint-form.active {
+            display: block;
+        }
+
+        .tb-desc {
+            font-size: 12.5px;
+            color: var(--wa-text-secondary);
+            margin-bottom: 12px;
+            line-height: 18px;
+        }
+
+        .tb-input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 10px;
+        }
+
+        .tb-input-group label {
+            font-size: 11px;
+            color: #8b949e;
+            font-weight: 600;
+        }
+
+        .tb-input-group input, .tb-input-group select {
+            background-color: #161b22;
+            border: 1px solid var(--api-border);
+            border-radius: 6px;
+            color: var(--api-text);
+            padding: 8px 10px;
+            font-size: 13px;
+            outline: none;
+        }
+
+        .tb-input-group input:focus, .tb-input-group select:focus {
+            border-color: var(--wa-green);
+        }
+
+        .tb-btn {
+            background-color: var(--wa-green);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+            transition: background-color 0.2s;
+            width: 100%;
+        }
+
+        .tb-btn:hover {
+            background-color: var(--wa-green-hover);
+        }
+
+        /* Test bench results display box */
+        .tb-result-panel {
+            margin-top: 16px;
+            border-top: 1.5px solid var(--api-border);
+            padding-top: 14px;
+        }
+
+        .tb-result-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--api-text);
+            margin-bottom: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .tb-result-code {
+            padding: 10px;
+            background-color: #0c1015;
+            border-radius: 6px;
+            border: 1px solid var(--api-border);
+            color: var(--api-text);
+            font-family: monospace;
+            font-size: 11.5px;
+            overflow-x: auto;
+            max-height: 250px;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+
+        .tb-status {
+            font-size: 10px;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        /* === GROUP CREATION MODAL WINDOW === */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -592,10 +1209,11 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
+            background-color: rgba(0, 0, 0, 0.75);
             z-index: 100;
             justify-content: center;
             align-items: center;
+            backdrop-filter: blur(4px);
         }
 
         .modal-overlay.active {
@@ -604,13 +1222,20 @@
 
         .modal {
             background-color: var(--wa-sidebar-bg);
-            border-radius: 12px;
+            border-radius: 16px;
             border: 1px solid var(--wa-border);
             width: 90%;
-            max-width: 500px;
+            max-width: 460px;
             display: flex;
             flex-direction: column;
             overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+            animation: modalScale 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+        }
+
+        @keyframes modalScale {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
         }
 
         .modal-header {
@@ -623,14 +1248,16 @@
         }
 
         .modal-title {
+            font-family: 'Outfit', sans-serif;
             font-size: 18px;
-            font-weight: 500;
+            font-weight: 600;
         }
 
         .modal-close {
             cursor: pointer;
             color: var(--wa-text-secondary);
-            font-size: 20px;
+            font-size: 18px;
+            transition: color 0.2s;
         }
 
         .modal-close:hover {
@@ -641,27 +1268,28 @@
             padding: 20px;
             display: flex;
             flex-direction: column;
-            gap: 16px;
-            max-height: 400px;
+            gap: 18px;
+            max-height: 380px;
             overflow-y: auto;
         }
 
         .user-checkbox-list {
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            margin-top: 10px;
+            gap: 8px;
+            margin-top: 8px;
         }
 
         .user-checkbox-item {
             display: flex;
             align-items: center;
             gap: 12px;
-            padding: 10px;
+            padding: 10px 14px;
             border-radius: 8px;
             background-color: var(--wa-header-bg);
             cursor: pointer;
             transition: background-color 0.2s;
+            user-select: none;
         }
 
         .user-checkbox-item:hover {
@@ -685,12 +1313,14 @@
         }
 
         .modal-btn {
-            padding: 10px 18px;
-            border-radius: 6px;
+            padding: 10px 20px;
+            border-radius: 8px;
             font-size: 14px;
-            font-weight: 500;
+            font-weight: 600;
             cursor: pointer;
             border: none;
+            outline: none;
+            transition: background-color 0.2s;
         }
 
         .modal-btn.cancel {
@@ -711,11 +1341,11 @@
             background-color: var(--wa-green-hover);
         }
 
-        /* Alerts / Toast Messages */
+        /* Toast Popup Alerts */
         .toast-container {
             position: fixed;
-            top: 20px;
-            right: 20px;
+            bottom: 20px;
+            left: 20px;
             display: flex;
             flex-direction: column;
             gap: 10px;
@@ -723,17 +1353,20 @@
         }
 
         .toast {
-            background-color: #313a40;
+            background-color: var(--wa-header-bg);
             color: var(--wa-text-primary);
             padding: 12px 24px;
-            border-radius: 6px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            border-radius: 8px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
             border-left: 4px solid var(--wa-green);
             font-size: 14px;
             font-weight: 500;
             transform: translateY(20px);
             opacity: 0;
             animation: toast-in 0.3s forwards;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         @keyframes toast-in {
@@ -748,58 +1381,62 @@
 
     <!-- ==================== PAGE 1: SIGNUP ==================== -->
     <div id="signup-page" class="page">
-        <div class="auth-container">
-            <div class="auth-logo">
-                <i class="fab fa-whatsapp"></i>
-            </div>
-            <h2 class="auth-title">Create your Account</h2>
-            <p class="auth-subtitle">Join the virtual WhatsApp SPA chat application</p>
-            
-            <form id="signup-form" class="auth-form" onsubmit="handleSignup(event)">
-                <div class="input-group">
-                    <label for="signup-name">Display Name</label>
-                    <input type="text" id="signup-name" placeholder="John Doe" required autocomplete="name">
+        <div class="auth-wrapper">
+            <div class="auth-container">
+                <div class="auth-logo">
+                    <i class="fab fa-whatsapp"></i>
                 </div>
-                <div class="input-group">
-                    <label for="signup-username">Username</label>
-                    <input type="text" id="signup-username" placeholder="johndoe12" required autocomplete="username">
+                <h2 class="auth-title">WhatsApp Web</h2>
+                <p class="auth-subtitle">Create a test chat account</p>
+                
+                <form id="signup-form" class="auth-form" onsubmit="handleSignup(event)">
+                    <div class="input-group">
+                        <label for="signup-name">Full Name</label>
+                        <input type="text" id="signup-name" placeholder="E.g., John Doe" required autocomplete="name">
+                    </div>
+                    <div class="input-group">
+                        <label for="signup-username">Username or Email</label>
+                        <input type="text" id="signup-username" placeholder="yourname" required autocomplete="username">
+                    </div>
+                    <div class="input-group">
+                        <label for="signup-password">Password</label>
+                        <input type="password" id="signup-password" placeholder="••••••••" required autocomplete="new-password">
+                    </div>
+                    <button type="submit" class="auth-btn">Sign Up</button>
+                </form>
+                
+                <div class="auth-footer">
+                    Already have an account? <a href="#/login">Login here</a>
                 </div>
-                <div class="input-group">
-                    <label for="signup-password">Password</label>
-                    <input type="password" id="signup-password" placeholder="••••••••" required autocomplete="new-password">
-                </div>
-                <button type="submit" class="auth-btn">Sign Up</button>
-            </form>
-            
-            <div class="auth-footer">
-                Already have an account? <a href="#/login">Login here</a>
             </div>
         </div>
     </div>
 
     <!-- ==================== PAGE 2: LOGIN ==================== -->
     <div id="login-page" class="page">
-        <div class="auth-container">
-            <div class="auth-logo">
-                <i class="fab fa-whatsapp"></i>
-            </div>
-            <h2 class="auth-title">Log in to WhatsApp</h2>
-            <p class="auth-subtitle">Enter your username and password to start chatting</p>
-            
-            <form id="login-form" class="auth-form" onsubmit="handleLogin(event)">
-                <div class="input-group">
-                    <label for="login-username">Username</label>
-                    <input type="text" id="login-username" placeholder="johndoe12" required autocomplete="username">
+        <div class="auth-wrapper">
+            <div class="auth-container">
+                <div class="auth-logo">
+                    <i class="fab fa-whatsapp"></i>
                 </div>
-                <div class="input-group">
-                    <label for="login-password">Password</label>
-                    <input type="password" id="login-password" placeholder="••••••••" required autocomplete="current-password">
+                <h2 class="auth-title">WhatsApp Web</h2>
+                <p class="auth-subtitle">Sign in to start testing</p>
+                
+                <form id="login-form" class="auth-form" onsubmit="handleLogin(event)">
+                    <div class="input-group">
+                        <label for="login-username">Username or Email</label>
+                        <input type="text" id="login-username" placeholder="yourname" required autocomplete="username">
+                    </div>
+                    <div class="input-group">
+                        <label for="login-password">Password</label>
+                        <input type="password" id="login-password" placeholder="••••••••" required autocomplete="current-password">
+                    </div>
+                    <button type="submit" class="auth-btn">Log In</button>
+                </form>
+                
+                <div class="auth-footer">
+                    Don't have an account yet? <a href="#/signup">Sign Up now</a>
                 </div>
-                <button type="submit" class="auth-btn">Log In</button>
-            </form>
-            
-            <div class="auth-footer">
-                Don't have an account yet? <a href="#/signup">Sign Up now</a>
             </div>
         </div>
     </div>
@@ -810,13 +1447,13 @@
             
             <!-- Sidebar Area -->
             <div class="sidebar">
-                
                 <!-- Header -->
                 <div class="sidebar-header">
                     <div class="user-profile-img" id="current-user-avatar" title="My Profile">U</div>
                     <div class="sidebar-actions">
-                        <i class="fas fa-users" title="Create Group" onclick="openCreateGroupModal()"></i>
-                        <i class="fas fa-sign-out-alt" title="Logout" onclick="handleLogout()"></i>
+                        <i class="fas fa-terminal" title="Toggle API Inspector Console" onclick="toggleApiInspector()"></i>
+                        <i class="fas fa-users" title="Create Group Chat" onclick="openCreateGroupModal()"></i>
+                        <i class="fas fa-sign-out-alt" title="Logout Session" onclick="handleLogout()"></i>
                     </div>
                 </div>
 
@@ -849,14 +1486,17 @@
                 
                 <!-- Welcome Overlay Screen -->
                 <div class="welcome-screen" id="welcome-screen">
-                    <div class="welcome-icon">
+                    <div class="welcome-logo-container">
                         <i class="fab fa-whatsapp"></i>
                     </div>
-                    <h1 class="welcome-title">WhatsApp Web SPA</h1>
+                    <h1 class="welcome-title">WhatsApp Web</h1>
                     <p class="welcome-desc">
-                        Welcome! Select a user from the <b>"All Users"</b> tab or click on an existing conversation from <b>"Chats"</b> to start messaging. 
-                        You can also open this page in multiple browser tabs to simulate a real-time multiplayer chat!
+                        Select a chat from the lists to start messaging. Leverage the <b>API Inspector</b> side panel (click the terminal icon <i class="fas fa-terminal" style="color: var(--wa-green); font-size:12px;"></i> above) to observe and run mock API CRUD requests in real-time.
                     </p>
+                    <div class="welcome-divider"></div>
+                    <div class="welcome-footer">
+                        <i class="fas fa-lock"></i> End-to-end simulated RESTful test framework
+                    </div>
                 </div>
 
                 <!-- Chat Header -->
@@ -865,12 +1505,12 @@
                         <div class="user-profile-img" id="active-chat-avatar" style="border:none;">A</div>
                         <div>
                             <div class="chat-title" id="active-chat-title">Chat Partner</div>
-                            <div class="chat-subtitle" id="active-chat-subtitle">last seen recently</div>
+                            <div class="chat-subtitle" id="active-chat-subtitle">online</div>
                         </div>
                     </div>
                     <div class="chat-header-actions">
                         <i class="fas fa-search" title="Search messages"></i>
-                        <i class="fas fa-ellipsis-v" title="Menu"></i>
+                        <i class="fas fa-terminal" title="Toggle API Inspector Console" onclick="toggleApiInspector()"></i>
                     </div>
                 </div>
 
@@ -888,8 +1528,198 @@
                     </div>
                     <i class="fas fa-paper-plane" title="Send" onclick="sendMessage()"></i>
                 </div>
-
             </div>
+
+            <!-- Toggleable API Inspector Drawer -->
+            <div class="api-inspector collapsed" id="api-inspector">
+                <div class="api-inspector-header">
+                    <div class="api-title">
+                        <i class="fas fa-terminal"></i> API Inspector & Console
+                    </div>
+                    <div class="api-header-actions">
+                        <button class="api-header-btn" title="Clear logs" onclick="clearApiLogs()">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                        <button class="api-header-btn" title="Close inspector" onclick="toggleApiInspector()">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- API Tabs -->
+                <div class="api-tabs">
+                    <div class="api-tab active" id="api-tab-log" onclick="switchApiTab('log')">API Traffic Log</div>
+                    <div class="api-tab" id="api-tab-bench" onclick="switchApiTab('bench')">Manual Test Bench</div>
+                </div>
+
+                <!-- API Log Console Panel -->
+                <div class="api-panel-content active" id="api-panel-log">
+                    <div class="api-log-list" id="api-log-list">
+                        <!-- Loaded dynamically via JS interceptions -->
+                    </div>
+                </div>
+
+                <!-- API Manual Testing Accordion Form Panel -->
+                <div class="api-panel-content" id="api-panel-bench">
+                    
+                    <!-- Accordion Section 1: GET users -->
+                    <div class="tb-section">
+                        <div class="tb-endpoint-header" onclick="toggleTbForm('form-get-users')">
+                            <span class="api-method badge-get">GET</span>
+                            <span class="api-path">/api/users</span>
+                        </div>
+                        <div class="tb-endpoint-form active" id="form-get-users">
+                            <p class="tb-desc">Fetch the list of all registered users in the database.</p>
+                            <button class="tb-btn" onclick="runTestBenchApi('getUsers')">Send Request</button>
+                        </div>
+                    </div>
+
+                    <!-- Accordion Section 2: POST users -->
+                    <div class="tb-section">
+                        <div class="tb-endpoint-header" onclick="toggleTbForm('form-post-user')">
+                            <span class="api-method badge-post">POST</span>
+                            <span class="api-path">/api/users</span>
+                        </div>
+                        <div class="tb-endpoint-form" id="form-post-user">
+                            <p class="tb-desc">Create/register a new user account.</p>
+                            <div class="tb-input-group">
+                                <label>Username *</label>
+                                <input type="text" id="tb-username" placeholder="e.g. david">
+                            </div>
+                            <div class="tb-input-group">
+                                <label>Display Name *</label>
+                                <input type="text" id="tb-name" placeholder="e.g. David Miller">
+                            </div>
+                            <div class="tb-input-group">
+                                <label>Password *</label>
+                                <input type="password" id="tb-password" value="123">
+                            </div>
+                            <button class="tb-btn" onclick="runTestBenchApi('postUser')">Send Request</button>
+                        </div>
+                    </div>
+
+                    <!-- Accordion Section 3: GET messages -->
+                    <div class="tb-section">
+                        <div class="tb-endpoint-header" onclick="toggleTbForm('form-get-messages')">
+                            <span class="api-method badge-get">GET</span>
+                            <span class="api-path">/api/messages</span>
+                        </div>
+                        <div class="tb-endpoint-form" id="form-get-messages">
+                            <p class="tb-desc">Fetch messages. Use parameters below to filter messages.</p>
+                            <div class="tb-input-group">
+                                <label>chatWith (Username - Direct Chat)</label>
+                                <input type="text" id="tb-chatwith" placeholder="e.g. bob">
+                            </div>
+                            <div class="tb-input-group">
+                                <label>groupId (Group Chat ID)</label>
+                                <input type="text" id="tb-groupid" placeholder="e.g. g1">
+                            </div>
+                            <button class="tb-btn" onclick="runTestBenchApi('getMessages')">Send Request</button>
+                        </div>
+                    </div>
+
+                    <!-- Accordion Section 4: POST messages -->
+                    <div class="tb-section">
+                        <div class="tb-endpoint-header" onclick="toggleTbForm('form-post-message')">
+                            <span class="api-method badge-post">POST</span>
+                            <span class="api-path">/api/messages</span>
+                        </div>
+                        <div class="tb-endpoint-form" id="form-post-message">
+                            <p class="tb-desc">Send/create a new direct or group chat message.</p>
+                            <div class="tb-input-group">
+                                <label>Sender Username (defaults to current user)</label>
+                                <input type="text" id="tb-sender" placeholder="e.g. alice">
+                            </div>
+                            <div class="tb-input-group">
+                                <label>Recipient Username / Group ID *</label>
+                                <input type="text" id="tb-recipient" placeholder="e.g. bob or g1">
+                            </div>
+                            <div class="tb-input-group">
+                                <label>Message Type *</label>
+                                <select id="tb-type">
+                                    <option value="direct">Direct Message</option>
+                                    <option value="group">Group Message</option>
+                                </select>
+                            </div>
+                            <div class="tb-input-group">
+                                <label>Message Text *</label>
+                                <input type="text" id="tb-text" placeholder="Hello there!">
+                            </div>
+                            <button class="tb-btn" onclick="runTestBenchApi('postMessage')">Send Request</button>
+                        </div>
+                    </div>
+
+                    <!-- Accordion Section 5: PUT messages -->
+                    <div class="tb-section">
+                        <div class="tb-endpoint-header" onclick="toggleTbForm('form-put-message')">
+                            <span class="api-method badge-put">PUT</span>
+                            <span class="api-path">/api/messages</span>
+                        </div>
+                        <div class="tb-endpoint-form" id="form-put-message">
+                            <p class="tb-desc">Edit/update the content of an existing message.</p>
+                            <div class="tb-input-group">
+                                <label>Message ID *</label>
+                                <input type="text" id="tb-edit-id" placeholder="e.g. 1779700979457">
+                            </div>
+                            <div class="tb-input-group">
+                                <label>Updated Message Text *</label>
+                                <input type="text" id="tb-edit-text" placeholder="This message was edited!">
+                            </div>
+                            <button class="tb-btn" onclick="runTestBenchApi('putMessage')">Send Request</button>
+                        </div>
+                    </div>
+
+                    <!-- Accordion Section 6: DELETE messages -->
+                    <div class="tb-section">
+                        <div class="tb-endpoint-header" onclick="toggleTbForm('form-delete-message')">
+                            <span class="api-method badge-delete">DELETE</span>
+                            <span class="api-path">/api/messages</span>
+                        </div>
+                        <div class="tb-endpoint-form" id="form-delete-message">
+                            <p class="tb-desc">Delete/recall a message permanently by its ID.</p>
+                            <div class="tb-input-group">
+                                <label>Message ID *</label>
+                                <input type="text" id="tb-delete-id" placeholder="e.g. 1779700979457">
+                            </div>
+                            <button class="tb-btn" onclick="runTestBenchApi('deleteMessage')">Send Request</button>
+                        </div>
+                    </div>
+
+                    <!-- Accordion Section 7: POST groups -->
+                    <div class="tb-section">
+                        <div class="tb-endpoint-header" onclick="toggleTbForm('form-post-group')">
+                            <span class="api-method badge-post">POST</span>
+                            <span class="api-path">/api/groups</span>
+                        </div>
+                        <div class="tb-endpoint-form" id="form-post-group">
+                            <p class="tb-desc">Create a new group chat room.</p>
+                            <div class="tb-input-group">
+                                <label>Group Name *</label>
+                                <input type="text" id="tb-group-name" placeholder="e.g. Study Group 🎓">
+                            </div>
+                            <div class="tb-input-group">
+                                <label>Creator Username (defaults to current user)</label>
+                                <input type="text" id="tb-group-creator" placeholder="e.g. alice">
+                            </div>
+                            <div class="tb-input-group">
+                                <label>Member Usernames (comma-separated) *</label>
+                                <input type="text" id="tb-group-members" placeholder="e.g. alice, bob, charlie">
+                            </div>
+                            <button class="tb-btn" onclick="runTestBenchApi('postGroup')">Send Request</button>
+                        </div>
+                    </div>
+
+                    <!-- Response output box -->
+                    <div class="tb-result-panel">
+                        <div class="tb-result-title">
+                            <span>Last Execution Output</span>
+                            <button class="api-header-btn" onclick="document.getElementById('test-bench-response').innerText = 'No API executed yet.'">Clear</button>
+                        </div>
+                        <pre class="tb-result-code" id="test-bench-response">No API executed yet.</pre>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 
@@ -897,7 +1727,7 @@
     <div class="modal-overlay" id="group-modal">
         <div class="modal">
             <div class="modal-header">
-                <h3 class="modal-title">Create a New Group Chat</h3>
+                <h3 class="modal-title">Create Group Chat</h3>
                 <i class="fas fa-times modal-close" onclick="closeCreateGroupModal()"></i>
             </div>
             <div class="modal-body">
@@ -906,7 +1736,7 @@
                     <input type="text" id="group-name" placeholder="E.g., Dev Team 🚀" required>
                 </div>
                 <div>
-                    <label style="font-size: 12px; color: var(--wa-green); font-weight: 600; text-transform: uppercase;">Select Members</label>
+                    <label style="font-size: 11px; color: var(--wa-green); font-weight: 700; text-transform: uppercase;">Select Members</label>
                     <div class="user-checkbox-list" id="group-user-selection">
                         <!-- Loaded dynamically via JS -->
                     </div>
@@ -924,7 +1754,7 @@
 
     <!-- ==================== JAVASCRIPT APP LOGIC ==================== -->
     <script>
-        // === FILE-BACKED STATE VIA LOCAL PYTHON API ===
+        // === GLOBAL SPA STATE ===
         let appState = {
             users: [],
             messages: [],
@@ -934,11 +1764,254 @@
         let currentUser = null;
         let activeSidebarTab = 'chats'; // 'chats' or 'users'
         let activeChatType = null; // 'direct' or 'group'
-        let activeChatId = null; // username for direct chat, group id for group chat
+        let activeChatId = null; // username for direct, groupId for group
         let searchQuery = '';
+        let apiLogs = [];
+        let editingMessageId = null;
+        let activeDropdownMsgId = null;
 
         const syncChannel = 'BroadcastChannel' in window ? new BroadcastChannel('wa-state-sync') : null;
 
+        // === API FETCH INTERCEPTOR FOR TRAFFIC LOGGING ===
+        const originalFetch = window.fetch;
+        window.fetch = async function (url, options = {}) {
+            const method = options.method || 'GET';
+            let requestBody = null;
+            if (options.body) {
+                try {
+                    requestBody = JSON.parse(options.body);
+                } catch(e) {
+                    requestBody = options.body;
+                }
+            }
+
+            const timestamp = new Date().toLocaleTimeString() + '.' + String(new Date().getMilliseconds()).padStart(3, '0');
+            
+            const logEntry = {
+                id: Date.now() + '-' + Math.random().toString(36).substr(2, 5),
+                method,
+                url,
+                timestamp,
+                requestBody,
+                status: 'PENDING',
+                responseBody: null,
+                statusClass: 'pending'
+            };
+            
+            addApiLog(logEntry);
+            
+            try {
+                const response = await originalFetch(url, options);
+                logEntry.status = response.status + ' ' + response.statusText;
+                logEntry.statusClass = response.ok ? 'success' : 'error';
+                
+                const contentType = response.headers.get('content-type');
+                if (contentType && contentType.includes('application/json')) {
+                    const clone = response.clone();
+                    logEntry.responseBody = await clone.json();
+                } else {
+                    const clone = response.clone();
+                    logEntry.responseBody = await clone.text();
+                }
+                
+                updateApiLog(logEntry);
+                return response;
+            } catch (error) {
+                logEntry.status = 'FAILED';
+                logEntry.statusClass = 'error';
+                logEntry.responseBody = error.message;
+                updateApiLog(logEntry);
+                throw error;
+            }
+        };
+
+        function addApiLog(log) {
+            apiLogs.unshift(log);
+            if (apiLogs.length > 50) apiLogs.pop();
+            renderApiLogs();
+        }
+
+        function updateApiLog(updatedLog) {
+            const idx = apiLogs.findIndex(l => l.id === updatedLog.id);
+            if (idx !== -1) {
+                apiLogs[idx] = updatedLog;
+                renderApiLogs();
+            }
+        }
+
+        function clearApiLogs() {
+            apiLogs = [];
+            renderApiLogs();
+        }
+
+        function renderApiLogs() {
+            const list = document.getElementById('api-log-list');
+            if (!list) return;
+            list.innerHTML = '';
+            
+            if (apiLogs.length === 0) {
+                list.innerHTML = `<div class="api-empty">No API requests recorded yet.<br>Perform chats, signup or load details to capture traffic.</div>`;
+                return;
+            }
+            
+            apiLogs.forEach(log => {
+                const item = document.createElement('div');
+                item.className = 'api-log-item';
+                
+                item.innerHTML = `
+                    <div class="api-log-header" onclick="this.parentElement.classList.toggle('expanded')">
+                        <span class="api-method badge-${log.method.toLowerCase()}">${log.method}</span>
+                        <span class="api-path">${escapeHTML(log.url.split('?')[0])}</span>
+                        <span class="api-status badge-${log.statusClass}">${log.status}</span>
+                        <i class="fas fa-chevron-down api-chevron"></i>
+                    </div>
+                    <div class="api-log-details">
+                        <div class="api-log-time">Captured: ${log.timestamp} | URL: ${escapeHTML(log.url)}</div>
+                        ${log.requestBody ? `
+                            <div class="api-json-section">
+                                <div class="api-json-title">Request Body</div>
+                                <pre class="api-json-code">${syntaxHighlightJSON(log.requestBody)}</pre>
+                            </div>
+                        ` : ''}
+                        <div class="api-json-section">
+                            <div class="api-json-title">Response Body</div>
+                            <pre class="api-json-code">${syntaxHighlightJSON(log.responseBody)}</pre>
+                        </div>
+                    </div>
+                `;
+                list.appendChild(item);
+            });
+        }
+
+        function syntaxHighlightJSON(json) {
+            if (json === null || json === undefined) return 'null';
+            if (typeof json !== 'object') {
+                return escapeHTML(String(json));
+            }
+            const str = JSON.stringify(json, null, 2);
+            return str.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+-]?\d+)?)/g, function (match) {
+                let cls = 'number';
+                if (/^"/.test(match)) {
+                    if (/:$/.test(match)) {
+                        cls = 'key';
+                    } else {
+                        cls = 'string';
+                    }
+                } else if (/true|false/.test(match)) {
+                    cls = 'boolean';
+                } else if (/null/.test(match)) {
+                    cls = 'null';
+                }
+                return '<span class="api-code-' + cls + '">' + match + '</span>';
+            });
+        }
+
+        // === API INSPECTOR CONTROL FUNCTIONS ===
+        function toggleApiInspector() {
+            const inspector = document.getElementById('api-inspector');
+            inspector.classList.toggle('collapsed');
+        }
+
+        function switchApiTab(tab) {
+            document.getElementById('api-tab-log').classList.toggle('active', tab === 'log');
+            document.getElementById('api-tab-bench').classList.toggle('active', tab === 'bench');
+            document.getElementById('api-panel-log').classList.toggle('active', tab === 'log');
+            document.getElementById('api-panel-bench').classList.toggle('active', tab === 'bench');
+        }
+
+        function toggleTbForm(formId) {
+            document.querySelectorAll('.tb-endpoint-form').forEach(form => {
+                if (form.id === formId) {
+                    form.classList.toggle('active');
+                } else {
+                    form.classList.remove('active');
+                }
+            });
+        }
+
+        async function runTestBenchApi(apiName) {
+            const resPre = document.getElementById('test-bench-response');
+            resPre.innerText = 'Executing HTTP Request...';
+            
+            try {
+                let url = '';
+                let options = { method: 'GET' };
+                
+                if (apiName === 'getUsers') {
+                    url = '/api/users';
+                } else if (apiName === 'postUser') {
+                    const username = document.getElementById('tb-username').value.trim();
+                    const name = document.getElementById('tb-name').value.trim();
+                    const password = document.getElementById('tb-password').value;
+                    url = '/api/users';
+                    options = {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ username, name, password })
+                    };
+                } else if (apiName === 'getMessages') {
+                    const chatWith = document.getElementById('tb-chatwith').value.trim();
+                    const groupId = document.getElementById('tb-groupid').value.trim();
+                    url = `/api/messages?chatWith=${encodeURIComponent(chatWith)}&groupId=${encodeURIComponent(groupId)}&currentUser=${encodeURIComponent(currentUser?.username || '')}`;
+                } else if (apiName === 'postMessage') {
+                    const sender = document.getElementById('tb-sender').value.trim() || currentUser?.username;
+                    const recipient = document.getElementById('tb-recipient').value.trim();
+                    const type = document.getElementById('tb-type').value;
+                    const text = document.getElementById('tb-text').value.trim();
+                    url = '/api/messages';
+                    options = {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ sender, recipient, type, text })
+                    };
+                } else if (apiName === 'putMessage') {
+                    const id = document.getElementById('tb-edit-id').value.trim();
+                    const text = document.getElementById('tb-edit-text').value.trim();
+                    url = '/api/messages';
+                    options = {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ id, text })
+                    };
+                } else if (apiName === 'deleteMessage') {
+                    const id = document.getElementById('tb-delete-id').value.trim();
+                    url = `/api/messages?id=${encodeURIComponent(id)}`;
+                    options = { method: 'DELETE' };
+                } else if (apiName === 'postGroup') {
+                    const name = document.getElementById('tb-group-name').value.trim();
+                    const creator = document.getElementById('tb-group-creator').value.trim() || currentUser?.username;
+                    const members = document.getElementById('tb-group-members').value.split(',').map(m => m.trim()).filter(Boolean);
+                    url = '/api/groups';
+                    options = {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ name, creator, members })
+                    };
+                }
+                
+                const response = await originalFetch(url, options); // Call unintercepted so it displays exclusively in the test bench output panel
+                let data;
+                const contentType = response.headers.get('content-type');
+                if (contentType && contentType.includes('application/json')) {
+                    data = await response.json();
+                } else {
+                    data = await response.text();
+                }
+                
+                resPre.innerHTML = `<span class="tb-status badge-${response.ok ? 'success' : 'error'}">Response Status: ${response.status} ${response.statusText}</span>\n\n` + syntaxHighlightJSON(data);
+                
+                // Refresh local application state if modifications were made
+                if (response.ok && apiName !== 'getUsers' && apiName !== 'getMessages') {
+                    await loadState();
+                    if (syncChannel) syncChannel.postMessage({ type: 'state-updated' });
+                    renderChatPage();
+                }
+            } catch (err) {
+                resPre.innerHTML = `<span class="tb-status badge-error">Failed: ${err.message}</span>`;
+            }
+        }
+
+        // === CORE STATE DATA HANDLERS ===
         function normalizeState(rawState) {
             return {
                 users: Array.isArray(rawState?.users) ? rawState.users : [],
@@ -948,41 +2021,29 @@
             };
         }
 
-        function getUsers() {
-            return appState.users || [];
-        }
-
-        function getMessages() {
-            return appState.messages || [];
-        }
-
-        function getGroups() {
-            return appState.groups || [];
-        }
+        function getUsers() { return appState.users || []; }
+        function getMessages() { return appState.messages || []; }
+        function getGroups() { return appState.groups || []; }
 
         async function loadState() {
             const response = await fetch('/api/state', { cache: 'no-store' });
             if (!response.ok) {
-                throw new Error('Failed to load local JSON state.');
+                throw new Error('Failed to load backend state.');
             }
-
             appState = normalizeState(await response.json());
             currentUser = appState.currentUser;
         }
 
         async function saveState() {
             appState.currentUser = currentUser;
-
             const response = await fetch('/api/state', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(appState)
             });
 
             if (!response.ok) {
-                throw new Error('Failed to save local JSON state.');
+                throw new Error('Failed to save backend state.');
             }
 
             if (syncChannel) {
@@ -990,29 +2051,25 @@
             }
         }
 
-        // Toast helper
+        // Toast helper alert popups
         function showToast(message) {
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
             toast.className = 'toast';
-            toast.innerText = message;
+            toast.innerHTML = `<i class="fab fa-whatsapp" style="color:var(--wa-green)"></i> <span>${escapeHTML(message)}</span>`;
             container.appendChild(toast);
             
-            // Remove after 3.5 seconds
             setTimeout(() => {
                 toast.style.animation = 'none';
                 toast.style.opacity = '0';
-                setTimeout(() => {
-                    toast.remove();
-                }, 300);
+                setTimeout(() => { toast.remove(); }, 300);
             }, 3500);
         }
 
-        // === SPA HASH ROUTER ===
+        // === SPA HASH ROUTING ===
         function router() {
             const hash = window.location.hash || '#/login';
             
-            // Route guards
             if (!currentUser && hash !== '#/login' && hash !== '#/signup') {
                 window.location.hash = '#/login';
                 return;
@@ -1022,10 +2079,8 @@
                 return;
             }
 
-            // Hide all pages
             document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
 
-            // Show active page
             if (hash === '#/signup') {
                 document.getElementById('signup-page').classList.add('active');
             } else if (hash === '#/login') {
@@ -1043,7 +2098,7 @@
                 router();
             } catch (error) {
                 console.error(error);
-                showToast('Run the local Python server before opening this page.');
+                showToast('Run the local Python server (main.py) before testing.');
             }
         });
 
@@ -1063,13 +2118,13 @@
                 try {
                     await loadState();
                     renderChatPage();
-                } catch (error) {
-                    console.error(error);
+                } catch (e) {
+                    console.error(e);
                 }
             }
         });
 
-        // === AUTH FUNCTIONS ===
+        // === SIGNUP, LOGIN & LOGOUT FLOWS (CRUD INTEGRATION) ===
         async function handleSignup(event) {
             event.preventDefault();
             const name = document.getElementById('signup-name').value.trim();
@@ -1081,24 +2136,29 @@
                 return;
             }
 
-            const users = getUsers();
-            
-            // Check username availability
-            if (users.some(u => u.username === username)) {
-                showToast("Username is already taken.");
-                return;
-            }
+            try {
+                // Call Endpoint 2: POST /api/users
+                const response = await fetch('/api/users', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, name, password })
+                });
 
-            appState.users = [...users, { name, username, password }];
-            
-            // Auto login after signup
-            currentUser = { username, name };
-            appState.currentUser = currentUser;
-            await saveState();
-            showToast(`Welcome ${name}! Signup successful.`);
-            
-            document.getElementById('signup-form').reset();
-            window.location.hash = '#/chat';
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.error || 'Failed to sign up.');
+                }
+
+                // Authenticate newly registered user session
+                currentUser = { username, name };
+                await saveState(); // updates appState.currentUser and syncs
+                showToast(`Welcome ${name}! Setup complete.`);
+                
+                document.getElementById('signup-form').reset();
+                window.location.hash = '#/chat';
+            } catch (err) {
+                showToast(err.message);
+            }
         }
 
         async function handleLogin(event) {
@@ -1106,45 +2166,50 @@
             const username = document.getElementById('login-username').value.trim().toLowerCase();
             const password = document.getElementById('login-password').value;
 
-            const users = getUsers();
-            const user = users.find(u => u.username === username && u.password === password);
+            try {
+                // Call Endpoint 1: GET /api/users
+                const response = await fetch('/api/users');
+                if (!response.ok) throw new Error('Could not verify credentials.');
+                
+                const users = await response.json();
+                const user = users.find(u => u.username === username && u.password === password);
 
-            if (!user) {
-                showToast("Invalid username or password.");
-                return;
+                if (!user) {
+                    showToast("Invalid username or password credentials.");
+                    return;
+                }
+
+                currentUser = { username: user.username, name: user.name };
+                await saveState();
+                showToast(`Welcome back, ${user.name}!`);
+                
+                document.getElementById('login-form').reset();
+                window.location.hash = '#/chat';
+            } catch (err) {
+                showToast(err.message);
             }
-
-            currentUser = { username: user.username, name: user.name };
-            appState.currentUser = currentUser;
-            await saveState();
-            showToast(`Welcome back, ${user.name}!`);
-            
-            document.getElementById('login-form').reset();
-            window.location.hash = '#/chat';
         }
 
         async function handleLogout() {
             currentUser = null;
-            appState.currentUser = null;
             activeChatId = null;
             activeChatType = null;
+            editingMessageId = null;
             await saveState();
-            showToast("Successfully logged out.");
+            showToast("Logged out of chat room session.");
             window.location.hash = '#/login';
         }
 
-        // === CHAT PAGE UI RENDERING ===
+        // === UI RENDERING WORKFLOW ===
         function renderChatPage() {
             if (!currentUser) return;
 
-            // Set profile avatar
             const avatar = document.getElementById('current-user-avatar');
             avatar.innerText = currentUser.name.charAt(0).toUpperCase();
             avatar.title = `${currentUser.name} (@${currentUser.username})`;
 
             renderSidebarList();
 
-            // Handle Welcome Screen
             if (!activeChatId) {
                 document.getElementById('welcome-screen').style.display = 'flex';
             } else {
@@ -1165,10 +2230,9 @@
             renderSidebarList();
         }
 
-        // Helper: retrieve last message between current user and a target (direct or group)
         function getLastMessage(targetId, type) {
             const messages = getMessages();
-            const relevantMsgs = messages.filter(msg => {
+            const relevant = messages.filter(msg => {
                 if (type === 'group') {
                     return msg.type === 'group' && msg.recipient === targetId;
                 } else {
@@ -1179,8 +2243,8 @@
                 }
             });
 
-            if (relevantMsgs.length === 0) return null;
-            return relevantMsgs[relevantMsgs.length - 1];
+            if (relevant.length === 0) return null;
+            return relevant[relevant.length - 1];
         }
 
         function renderSidebarList() {
@@ -1196,16 +2260,15 @@
             );
 
             if (activeSidebarTab === 'users') {
-                // Show all users directory to start a new chat
                 if (filteredUsers.length === 0) {
-                    container.innerHTML = `<div style="padding: 20px; text-align: center; color: var(--wa-text-secondary);">No users found</div>`;
+                    container.innerHTML = `<div style="padding: 30px 20px; text-align: center; color: var(--wa-text-secondary); font-size:14px;">No users found</div>`;
                     return;
                 }
 
                 filteredUsers.forEach(user => {
                     const lastMsg = getLastMessage(user.username, 'direct');
                     const timeStr = lastMsg ? formatTime(lastMsg.timestamp) : '';
-                    const textStr = lastMsg ? lastMsg.text : 'Click to start chatting';
+                    const textStr = lastMsg ? lastMsg.text : 'Click to send messages';
 
                     const item = document.createElement('div');
                     item.className = `list-item ${activeChatId === user.username && activeChatType === 'direct' ? 'active' : ''}`;
@@ -1224,22 +2287,20 @@
                     container.appendChild(item);
                 });
             } else {
-                // Active Chats (Direct message chats that have history, and Groups where user is a member)
+                // Chats Tab (Existing conversations with history, and joined groups)
                 const userGroups = groups.filter(g => g.members.includes(currentUser.username));
                 const filteredGroups = userGroups.filter(g => g.name.toLowerCase().includes(searchQuery));
 
-                // Find other users with whom there are existing messages
-                const directChatPartners = users.filter(u => {
+                const directPartners = users.filter(u => {
                     if (u.username === currentUser.username) return false;
                     const lastMsg = getLastMessage(u.username, 'direct');
-                    return lastMsg !== null; // there is existing history
+                    return lastMsg !== null;
                 });
                 
-                const filteredDirects = directChatPartners.filter(u => 
+                const filteredDirects = directPartners.filter(u => 
                     u.name.toLowerCase().includes(searchQuery) || u.username.toLowerCase().includes(searchQuery)
                 );
 
-                // Combine both groups and direct chats into a unified list, sorted by their last message timestamp
                 const itemsList = [];
 
                 filteredGroups.forEach(g => {
@@ -1250,7 +2311,7 @@
                         name: g.name,
                         lastMsg: lastMsg,
                         timestamp: lastMsg ? lastMsg.timestamp : 0,
-                        avatarLetter: 'G'
+                        avatarLetter: g.name.charAt(0).toUpperCase()
                     });
                 });
 
@@ -1266,13 +2327,12 @@
                     });
                 });
 
-                // Sort lists: chats with newer messages go to top. Empty history chats sorted by name.
                 itemsList.sort((a, b) => b.timestamp - a.timestamp);
 
                 if (itemsList.length === 0) {
                     container.innerHTML = `
-                        <div style="padding: 20px; text-align: center; color: var(--wa-text-secondary);">
-                            No active chats yet.<br>Go to <b>"All Users"</b> to start a chat or click the <i class="fas fa-users"></i> icon to create a group.
+                        <div style="padding: 30px 20px; text-align: center; color: var(--wa-text-secondary); font-size:13.5px; line-height: 20px;">
+                            No active chats.<br>Go to <b>All Users</b> or tap the <i class="fas fa-users" style="color:var(--wa-green)"></i> icon to start a group chat.
                         </div>`;
                     return;
                 }
@@ -1311,16 +2371,112 @@
         function selectChat(id, type) {
             activeChatId = id;
             activeChatType = type;
+            editingMessageId = null;
+            closeAllDropdowns();
             
-            // Hide welcome screen
             document.getElementById('welcome-screen').style.display = 'none';
 
-            // Refresh lists
             renderSidebarList();
             renderActiveChatWindow();
         }
 
-        function renderActiveChatWindow() {
+        // Dropdown actions toggler
+        function showMessageDropdown(msgId, event) {
+            event.stopPropagation();
+            closeAllDropdowns();
+            activeDropdownMsgId = msgId;
+            const menu = document.getElementById(`dropdown-${msgId}`);
+            if (menu) {
+                menu.classList.add('active');
+            }
+            document.addEventListener('click', closeAllDropdowns);
+        }
+
+        function closeAllDropdowns() {
+            document.querySelectorAll('.msg-dropdown').forEach(d => d.classList.remove('active'));
+            activeDropdownMsgId = null;
+            document.removeEventListener('click', closeAllDropdowns);
+        }
+
+        // Inline message editing triggers
+        function startEditMessage(msgId) {
+            closeAllDropdowns();
+            editingMessageId = msgId;
+            renderActiveChatWindow();
+        }
+
+        function cancelEditMessage() {
+            editingMessageId = null;
+            renderActiveChatWindow();
+        }
+
+        async function saveEditMessage(msgId) {
+            const input = document.getElementById(`edit-input-${msgId}`);
+            if (!input) return;
+            const newText = input.value.trim();
+            if (!newText) return;
+
+            try {
+                // Call Endpoint 5: PUT /api/messages
+                const response = await fetch('/api/messages', {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ id: msgId, text: newText })
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.error || 'Failed to update message.');
+                }
+
+                editingMessageId = null;
+                await loadState();
+                if (syncChannel) syncChannel.postMessage({ type: 'state-updated' });
+                
+                renderActiveChatWindow();
+                renderSidebarList();
+                showToast("Message updated.");
+            } catch (err) {
+                showToast(err.message);
+            }
+        }
+
+        async function deleteMessage(msgId) {
+            closeAllDropdowns();
+            if (!confirm("Delete message for everyone?")) return;
+
+            try {
+                // Call Endpoint 6: DELETE /api/messages?id=...
+                const response = await fetch(`/api/messages?id=${encodeURIComponent(msgId)}`, {
+                    method: 'DELETE'
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.error || 'Failed to delete message.');
+                }
+
+                await loadState();
+                if (syncChannel) syncChannel.postMessage({ type: 'state-updated' });
+                
+                renderActiveChatWindow();
+                renderSidebarList();
+                showToast("Message recalled.");
+            } catch (err) {
+                showToast(err.message);
+            }
+        }
+
+        function copyMessageText(text) {
+            closeAllDropdowns();
+            navigator.clipboard.writeText(text).then(() => {
+                showToast("Text copied to clipboard.");
+            }).catch(() => {
+                showToast("Failed to copy text.");
+            });
+        }
+
+        async function renderActiveChatWindow() {
             if (!activeChatId) return;
 
             const avatar = document.getElementById('active-chat-avatar');
@@ -1339,14 +2495,13 @@
             } else if (activeChatType === 'group') {
                 const group = groups.find(g => g.id === activeChatId);
                 title.innerText = group ? group.name : 'Group Chat';
-                
                 const membersStr = group ? group.members.join(', ') : '';
                 subtitle.innerText = `Members: ${membersStr}`;
-                avatar.innerText = 'G';
+                avatar.innerText = (group ? group.name : 'G').charAt(0).toUpperCase();
                 avatar.className = 'user-profile-img group-avatar';
             }
 
-            // Load and render messages
+            // Load and filter messages using custom filter logic
             const messages = getMessages();
             const relevantMsgs = messages.filter(msg => {
                 if (activeChatType === 'group') {
@@ -1364,8 +2519,8 @@
 
             if (relevantMsgs.length === 0) {
                 msgContainer.innerHTML = `
-                    <div style="margin: auto; background-color: rgba(32, 44, 51, 0.9); padding: 8px 16px; border-radius: 8px; font-size: 13px; color: var(--wa-text-secondary); text-align: center;">
-                        Messages are end-to-end simulated. Write a message to begin the chat.
+                    <div style="margin: auto; background-color: rgba(17, 27, 33, 0.9); border: 1px solid var(--wa-border); padding: 10px 18px; border-radius: 8px; font-size: 13px; color: var(--wa-text-secondary); text-align: center; max-width: 320px; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
+                        🔒 Messages are end-to-end simulated. Write a message to begin the chat room.
                     </div>
                 `;
             } else {
@@ -1379,49 +2534,94 @@
                         senderHtml = `<span class="msg-sender">${msg.sender}</span>`;
                     }
 
-                    row.innerHTML = `
-                        <div class="msg-bubble">
+                    const isEditing = editingMessageId === msg.id;
+
+                    let messageBodyHtml = '';
+                    if (isEditing) {
+                        messageBodyHtml = `
+                            <div class="msg-edit-container">
+                                <input type="text" id="edit-input-${msg.id}" class="msg-edit-input" value="${escapeHTML(msg.text)}">
+                                <div class="msg-edit-actions">
+                                    <button class="msg-edit-btn cancel" onclick="cancelEditMessage()">Cancel</button>
+                                    <button class="msg-edit-btn save" onclick="saveEditMessage('${msg.id}')">Save</button>
+                                </div>
+                            </div>
+                        `;
+                    } else {
+                        // Regular bubble with dropdown menu button
+                        const actionsHtml = `
+                            <button class="msg-caret-btn" onclick="showMessageDropdown('${msg.id}', event)">
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <div class="msg-dropdown" id="dropdown-${msg.id}">
+                                <div class="msg-dropdown-item" onclick="copyMessageText(\`${escapeHTML(msg.text.replace(/`/g, '\\`'))}\`)">
+                                    <i class="far fa-copy"></i> Copy text
+                                </div>
+                                ${isSent ? `
+                                    <div class="msg-dropdown-item" onclick="startEditMessage('${msg.id}')">
+                                        <i class="far fa-edit"></i> Edit message
+                                    </div>
+                                ` : ''}
+                                <div class="msg-dropdown-item danger" onclick="deleteMessage('${msg.id}')">
+                                    <i class="far fa-trash-alt"></i> Delete for all
+                                </div>
+                            </div>
+                        `;
+
+                        messageBodyHtml = `
                             ${senderHtml}
                             <span class="msg-content">${escapeHTML(msg.text)}</span>
                             <div class="msg-time-status">
                                 <span>${formatTime(msg.timestamp)}</span>
                                 ${isSent ? '<i class="fas fa-check-double"></i>' : ''}
                             </div>
-                        </div>
-                    `;
+                            ${actionsHtml}
+                        `;
+                    }
+
+                    row.innerHTML = `<div class="msg-bubble">${messageBodyHtml}</div>`;
                     msgContainer.appendChild(row);
                 });
             }
 
-            // Scroll to bottom
             msgContainer.scrollTop = msgContainer.scrollHeight;
         }
 
-        // === SEND MESSAGE ACTION ===
+        // === TRANSMIT MESSAGE ACTION (CRUD CREATE) ===
         async function sendMessage() {
             const input = document.getElementById('message-input');
             const text = input.value.trim();
             if (!text || !activeChatId) return;
 
-            const messages = getMessages();
-            const newMsg = {
-                id: Date.now().toString() + Math.random().toString(36).substr(2, 5),
-                sender: currentUser.username,
-                type: activeChatType,
-                recipient: activeChatId,
-                text: text,
-                timestamp: Date.now()
-            };
+            try {
+                // Call Endpoint 4: POST /api/messages
+                const response = await fetch('/api/messages', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        sender: currentUser.username,
+                        recipient: activeChatId,
+                        type: activeChatType,
+                        text: text
+                    })
+                });
 
-            appState.messages = [...messages, newMsg];
-            await saveState();
-            
-            input.value = '';
-            input.focus();
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.error || 'Failed to transmit message.');
+                }
 
-            // Refresh lists and window
-            renderActiveChatWindow();
-            renderSidebarList();
+                input.value = '';
+                input.focus();
+
+                await loadState();
+                if (syncChannel) syncChannel.postMessage({ type: 'state-updated' });
+                
+                renderActiveChatWindow();
+                renderSidebarList();
+            } catch (err) {
+                showToast(err.message);
+            }
         }
 
         function handleMessageKeydown(event) {
@@ -1430,7 +2630,7 @@
             }
         }
 
-        // === CREATE GROUP MODAL ACTIONS ===
+        // === NEW GROUP CREATOR MODAL WINDOWS ===
         function openCreateGroupModal() {
             const modal = document.getElementById('group-modal');
             modal.classList.add('active');
@@ -1442,7 +2642,7 @@
             const otherUsers = users.filter(u => u.username !== currentUser.username);
 
             if (otherUsers.length === 0) {
-                container.innerHTML = '<div style="color: var(--wa-text-secondary); font-size:14px;">No other users to add yet. Ask some users to signup first!</div>';
+                container.innerHTML = '<div style="color: var(--wa-text-secondary); font-size:13px; text-align:center; padding: 10px 0;">No other users found. Have users sign up first!</div>';
                 return;
             }
 
@@ -1465,7 +2665,7 @@
         async function submitCreateGroup() {
             const name = document.getElementById('group-name').value.trim();
             if (!name) {
-                showToast("Please provide a group name.");
+                showToast("Group name is required.");
                 return;
             }
 
@@ -1474,42 +2674,55 @@
             checkboxes.forEach(cb => members.push(cb.value));
 
             if (members.length < 2) {
-                showToast("Please select at least one other member to create a group.");
+                showToast("Select at least one member to join the group.");
                 return;
             }
 
-            const groups = getGroups();
-            const newGroupId = 'g_' + Date.now();
-            const newGroup = {
-                id: newGroupId,
-                name: name,
-                creator: currentUser.username,
-                members: members
-            };
+            try {
+                // Call Endpoint 7: POST /api/groups
+                const response = await fetch('/api/groups', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        name: name,
+                        creator: currentUser.username,
+                        members: members
+                    })
+                });
 
-            appState.groups = [...groups, newGroup];
-            await saveState();
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.error || 'Failed to create group.');
+                }
 
-            // Automatically open the new group chat
-            activeChatId = newGroupId;
-            activeChatType = 'group';
-            activeSidebarTab = 'chats';
+                const newGroup = await response.json();
 
-            closeCreateGroupModal();
-            showToast(`Group "${name}" created!`);
-            
-            renderChatPage();
+                activeChatId = newGroup.id;
+                activeChatType = 'group';
+                activeSidebarTab = 'chats';
+
+                closeCreateGroupModal();
+                showToast(`Group "${name}" established!`);
+                
+                await loadState();
+                if (syncChannel) syncChannel.postMessage({ type: 'state-updated' });
+                
+                renderChatPage();
+            } catch (err) {
+                showToast(err.message);
+            }
         }
 
         // === UTILITIES ===
         function formatTime(timestamp) {
+            if (!timestamp) return '';
             const date = new Date(timestamp);
             let hours = date.getHours();
             let minutes = date.getMinutes();
             const ampm = hours >= 12 ? 'PM' : 'AM';
             hours = hours % 12;
-            hours = hours ? hours : 12; // 0 should be 12
-            minutes = minutes < 10 ? '0'+minutes : minutes;
+            hours = hours ? hours : 12;
+            minutes = minutes < 10 ? '0' + minutes : minutes;
             return hours + ':' + minutes + ' ' + ampm;
         }
 

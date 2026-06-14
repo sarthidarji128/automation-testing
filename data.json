@@ -2,38 +2,132 @@
   "users": [
     {
       "username": "alice",
-      "name": "Alice Smith",
+      "name": "newUser",
       "password": "123"
     },
     {
-      "name": "sarthi",
-      "username": "sarthi",
+      "username": "bob",
+      "name": "Bob Jones",
+      "password": "123"
+    },
+    {
+      "username": "charlie",
+      "name": "Charlie Brown",
+      "password": "123"
+    },
+    {
+      "username": "newuser",
+      "name": "New User",
+      "password": "secret"
+    },
+    {
+      "name": "Test User",
+      "username": "testuser@example.com",
+      "password": "testpass123"
+    },
+    {
+      "name": "Test Useeer",
+      "username": "testusser@example.com",
+      "password": "testpass123"
+    },
+    {
+      "name": "Tanay Test User",
+      "username": "tanaytest@example.com",
+      "password": "testpass123"
+    },
+    {
+      "name": "TanaySTest User",
+      "username": "tanaystest@example.com",
+      "password": "testpass123"
+    },
+    {
+      "username": "jmeter_user",
+      "name": "JMeter User",
+      "password": "123"
+    },
+    {
+      "username": "jmeter_usernew",
+      "name": "JMeter User new",
       "password": "123"
     }
   ],
   "messages": [
     {
-      "id": "1779694880401ll0e1",
-      "sender": "sarthi",
+      "id": "1",
+      "sender": "alice",
+      "type": "direct",
+      "recipient": "bob",
+      "text": "This message was edited by JMeter!",
+      "timestamp": 0
+    },
+    {
+      "id": "1781428837504zatrf",
+      "sender": "jmeter_user",
       "type": "direct",
       "recipient": "alice",
-      "text": "hi",
-      "timestamp": 1779694880401
-    }
-  ],
-  "groups": [
+      "text": "Hello from JMeter Load Test!",
+      "timestamp": 1781428837504
+    },
     {
-      "id": "g_1779695437887",
-      "name": "Cypress All Users Group",
-      "creator": "alice",
-      "members": [
-        "alice",
-        "sarthi"
-      ]
+      "id": "17814288642321some",
+      "sender": "jmeter_user",
+      "type": "direct",
+      "recipient": "alice",
+      "text": "Hello from JMeter Load Test!",
+      "timestamp": 1781428864232
+    },
+    {
+      "id": "1781428915928f62if",
+      "sender": "jmeter_user",
+      "type": "direct",
+      "recipient": "alice",
+      "text": "Hello from JMeter Load Test!",
+      "timestamp": 1781428915928
+    },
+    {
+      "id": "178142891764494t2n",
+      "sender": "jmeter_user",
+      "type": "direct",
+      "recipient": "alice",
+      "text": "Hello from JMeter Load Test!",
+      "timestamp": 1781428917644
+    },
+    {
+      "id": "1781429065417ownia",
+      "sender": "jmeter_user",
+      "type": "direct",
+      "recipient": "alice",
+      "text": "Hello from JMeter Load Test!",
+      "timestamp": 1781429065417
+    },
+    {
+      "id": "17814290895176cgbp",
+      "sender": "jmeter_user",
+      "type": "direct",
+      "recipient": "alice",
+      "text": "Hello from JMeter Load Test!",
+      "timestamp": 1781429089517
+    },
+    {
+      "id": "1781429139770bhur2",
+      "sender": "jmeter_user",
+      "type": "direct",
+      "recipient": "alice",
+      "text": "Hello from JMeter Load Test!",
+      "timestamp": 1781429139771
+    },
+    {
+      "id": "17814294440824106b",
+      "sender": "jmeter_user",
+      "type": "direct",
+      "recipient": "alice",
+      "text": "Hello Im Sarthi",
+      "timestamp": 1781429444082
     }
   ],
+  "groups": [],
   "currentUser": {
     "username": "alice",
-    "name": "Alice Smith"
+    "name": "newUser"
   }
 }

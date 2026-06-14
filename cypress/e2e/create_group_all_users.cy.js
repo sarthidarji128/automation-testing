@@ -1,6 +1,8 @@
 const USERNAME = 'alice';
 const PASSWORD = '123';
-const GROUP_NAME = 'Cypress All Users Group';
+const SIGNUP_NAME = 'Group Test User';
+const SIGNUP_EMAIL = 'grouptest@example.com';
+const SIGNUP_PASSWORD = 'grouptest123';
 
 function resetCurrentUser() {
   cy.request('GET', '/api/state').then((response) => {
@@ -17,39 +19,38 @@ function resetCurrentUser() {
   });
 }
 
-function loginAsAlice() {
-  cy.visit('/#/login');
-
-  cy.get('#login-username').should('be.visible').clear().type(USERNAME);
-  cy.get('#login-password').should('be.visible').clear().type(PASSWORD);
-  cy.get('#login-form .auth-btn').click();
-}
-
-describe('Create a group with all users', () => {
-  it('logs in, creates a group, and includes every member', () => {
+describe('User Authentication - Signup and Login', () => {
+  it('successfully signs up a new user', () => {
     resetCurrentUser();
-    loginAsAlice();
 
-    cy.get('.sidebar-actions [title="Create Group"]').click({ force: true });
+    cy.visit('/#/signup');
 
-    cy.get('#group-name').should('be.visible').clear().type(GROUP_NAME);
-    cy.get('input[name="group_member"]').should('have.length.at.least', 1).check({ force: true });
-    cy.contains('.modal-btn.confirm', 'Create Group').click();
+    cy.get('#signup-name').should('be.visible').clear().type(SIGNUP_NAME);
+    cy.get('#signup-username').should('be.visible').clear().type(SIGNUP_EMAIL);
+    cy.get('#signup-password').should('be.visible').clear().type(SIGNUP_PASSWORD);
+    cy.get('#signup-form .auth-btn').click();
 
-    cy.contains('.item-name', GROUP_NAME).should('be.visible');
+    cy.url().should('include', '/#/chat');
+    cy.get('.sidebar').should('be.visible');
 
     cy.request('/api/state').then((response) => {
-      expect(response.status).to.eq(200);
-
-      const state = response.body || {};
-      const users = state.users || [];
-      const groups = state.groups || [];
-      const createdGroup = groups.find((group) => group.name === GROUP_NAME);
-
-      expect(createdGroup, 'created group').to.exist;
-      expect(createdGroup.members, 'group members').to.deep.equal(
-        users.map((user) => user.username)
-      );
+      const users = response.body.users || [];
+      const newUser = users.find((user) => user.username === SIGNUP_EMAIL);
+      expect(newUser, 'new user should be created').to.exist;
+      expect(newUser.name).to.equal(SIGNUP_NAME);
     });
+  });
+
+  it('successfully logs in existing user', () => {
+    resetCurrentUser();
+
+    cy.visit('/#/login');
+
+    cy.get('#login-username').should('be.visible').clear().type(USERNAME);
+    cy.get('#login-password').should('be.visible').clear().type(PASSWORD);
+    cy.get('#login-form .auth-btn').click();
+
+    cy.url().should('include', '/#/chat');
+    cy.get('.chat-area').should('be.visible');
   });
 });

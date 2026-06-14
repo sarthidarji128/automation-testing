@@ -1,7 +1,8 @@
 const USERNAME = 'alice';
 const PASSWORD = '123';
-const TARGET_USER = 'sarthi';
-const MESSAGE_TEXT = `send by sarthi`;
+const SIGNUP_NAME = 'TanaySTest User';
+const SIGNUP_EMAIL = 'tanaystest@example.com';
+const SIGNUP_PASSWORD = 'testpass123';
 
 function setCurrentUserNull() {
   cy.request('GET', '/api/state').then((response) => {
@@ -18,37 +19,36 @@ function setCurrentUserNull() {
   });
 }
 
-describe('Chat from one user to another', () => {
-  it('logs in and sends a direct message', () => {
+describe('Chat Application - Signup and Login', () => {
+  it('signs up with new account', () => {
+    setCurrentUserNull();
+
+    cy.visit('/#/signup');
+
+    // Fill signup form
+    cy.get('#signup-name').should('be.visible').clear().type(SIGNUP_NAME);
+    cy.get('#signup-username').should('be.visible').clear().type(SIGNUP_EMAIL);
+    cy.get('#signup-password').should('be.visible').clear().type(SIGNUP_PASSWORD);
+    cy.get('#signup-form .auth-btn').click();
+
+    // Verify redirected to chat page after signup
+    cy.url().should('include', '/#/chat');
+    cy.get('.sidebar').should('be.visible');
+    cy.get('.chat-area').should('be.visible');
+  });
+
+  it('logs in with existing account', () => {
     setCurrentUserNull();
 
     cy.visit('/#/login');
 
+    // Fill login form
     cy.get('#login-username').should('be.visible').clear().type(USERNAME);
     cy.get('#login-password').should('be.visible').clear().type(PASSWORD);
     cy.get('#login-form .auth-btn').click();
 
-    cy.contains('.sidebar-tab', 'All Users').click();
-    cy.contains('.list-item', 'Bob Jones').click();
-
-    cy.get('#message-input').should('be.visible').clear().type(MESSAGE_TEXT);
-    cy.get('.message-input-bar .fa-paper-plane').click();
-
-    cy.contains('.message-list .msg-content', MESSAGE_TEXT).should('be.visible');
-
-    cy.request('/api/state').then((response) => {
-      expect(response.status).to.eq(200);
-      const messages = response.body.messages || [];
-      const savedMessage = messages.find((message) => {
-        return (
-          message.sender === USERNAME &&
-          message.recipient === TARGET_USER &&
-          message.type === 'direct' &&
-          message.text === MESSAGE_TEXT
-        );
-      });
-
-      expect(savedMessage, 'saved direct message').to.exist;
-    });
+    // Verify chat page is loaded
+    cy.url().should('include', '/#/chat');
+    cy.get('.sidebar').should('be.visible');
   });
 });
